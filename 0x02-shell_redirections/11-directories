@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type f -name "*.js" -exec rm {} \;
+find . -typed ! -path . -print |  wc -1
