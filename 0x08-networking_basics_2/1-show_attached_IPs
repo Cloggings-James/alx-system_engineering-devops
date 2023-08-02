@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# This script displays all active IPv4 IPs on the machine
+
+# Use 'ifconfig' command to get network interface information
+interfaces=$(ifconfig | grep -Eo '^[a-zA-Z0-9]+' | uniq)
+
+# Loop through each interface and get its IPv4 address
+for interface in $interfaces; do
+    ip=$(ifconfig "$interface" | awk '/inet / {print $2}')
+    if [ -n "$ip" ]; then
+        echo "$ip"
+    fi
+done
+
