@@ -1,11 +1,8 @@
-#!/usr/bin/env bash
-# This script provides the answers to the OSI model questions
+# Question: What is the OSI model?
+# Answer:
+osi_model_answer = 2  # The OSI model is a conceptual model that characterizes the communication functions of a telecommunication system without regard to their underlying internal structure and technology.
 
-# Question 1: What is the OSI model?
-echo "Question 1: What is the OSI model?"
-echo "Answer: The OSI model is a conceptual model that characterizes the communication functions of a telecommunication system without regard to their underlying internal structure and technology."
-
-# Question 2: How is the OSI model organized?
-echo "Question 2: How is the OSI model organized?"
-echo "Answer: The OSI model is organized from the lowest to the highest level."
+# Question: How is the OSI model organized?
+# Answer:
+osi_organization_answer = 2  # The OSI model is organized from the lowest level to the highest level.
 
