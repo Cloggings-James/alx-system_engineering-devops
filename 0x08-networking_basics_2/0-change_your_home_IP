@@ -4,9 +4,9 @@
 # Backup the original /etc/hosts file
 sudo cp /etc/hosts /etc/hosts.bak
 
-# Replace localhost IP address
-sudo sed -i 's/^127.0.0.1[[:space:]]\+localhost$/127.0.0.2 localhost/' /etc/hosts
+# Update localhost IP address
+echo "127.0.0.2 localhost" | sudo tee -a /etc/hosts
 
-# Replace facebook.com IP address
-sudo sed -i 's/^.*[[:space:]]\+facebook.com$/8.8.8.8 facebook.com/' /etc/hosts
+# Update facebook.com IP address
+echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts
 
