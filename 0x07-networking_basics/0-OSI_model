@@ -2,10 +2,8 @@
 # This script provides the answers to the OSI model questions
 
 # Question 1: What is the OSI model?
-echo "The OSI model is a conceptual model that characterizes the communication functions of a telecommunication system into seven abstraction layers."
-# Correct Answer: The OSI model is a conceptual model that characterizes the communication functions of a telecommunication system into seven abstraction layers.
+echo "Answer: The OSI model is a conceptual model that characterizes the communication functions of a telecommunication system without regard to their underlying internal structure and technology."
 
 # Question 2: How is the OSI model organized?
-echo "The OSI model is organized from the lowest to the highest level, with each layer providing specific functions and services."
-# Correct Answer: The OSI model is organized from the lowest to the highest level, with each layer providing specific functions and services.
+echo "Answer: The OSI model is organized from the lowest to the highest level."
 
