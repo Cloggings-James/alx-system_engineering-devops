@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# This script displays listening ports on the system
+
+# Command to show listening sockets with PID and program name
+netstat -tulnp
+
