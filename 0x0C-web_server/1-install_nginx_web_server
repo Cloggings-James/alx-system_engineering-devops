@@ -1,17 +1,31 @@
-bash
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Update package list
-sudo apt-get update
+# Update the system
+sudo apt-get update -y
 
-# Install Nginx server
-sudo apt-get -y install nginx
+# Install nginx
+sudo apt-get install nginx -y
 
-# Allow Nginx traffic through the firewall
-sudo ufw allow 'Nginx HTTP'
+# Create a new directory for the website
+sudo mkdir /var/www/html/
 
-# Write "Holberton School" to the index.html file
-sudo echo "Holberton School" > /var/www/html/index.html
+# Create a new file for the website
+sudo touch /var/www/html/index.html
 
-# Start the Nginx service
-sudo service nginx start
+# Add the following content to the index.html file
+echo "Hello World!" > /var/www/html/index.html
+
+# Restart nginx to apply changes
+sudo service nginx restart
+
+# Check if nginx is running
+sudo service nginx status
+
+# Check if the website is accessible
+curl localhost
+
+# Check if the website is accessible from the outside
+curl -sI 34.198.248.145/
+
+# Check if the website contains the string "Hello World!"
+curl 34.198.248.145/ | grep "Hello World!"
