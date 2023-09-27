@@ -1,25 +1,41 @@
-#!/usr/bin/env bash
-# Install Nginx server
+#!/bin/bash
 
-# Update the package list
-sudo apt-get update
+# Update the system
+sudo apt-get update -y
 
-# Install Nginx
-sudo apt-get -y install nginx
+# Install nginx
+sudo apt-get install nginx -y
 
-# Allow HTTP traffic through the firewall for Nginx
-sudo ufw allow 'Nginx HTTP'
+# Create a new directory for the website
+sudo mkdir /var/www/html/
 
-# Create the HTML content
-echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+# Create a new file for the website
+sudo touch /var/www/html/index.html
 
-# Start the Nginx service
-sudo service nginx start
+# Add the following content to the index.html file
+echo "Hello World!" > /var/www/html/index.html
 
-# Check if Nginx is running
-if sudo service nginx status | grep -q "active (running)"; then
-    echo "Nginx is installed and running."
-else
-    echo "Nginx installation or start-up encountered an issue."
-fi
+# Restart nginx to apply changes
+sudo service nginx restart
 
+# Check if nginx is running
+sudo service nginx status
+
+# Check if the website is accessible
+curl localhost
+
+# Check if the website is accessible from the outside
+curl 34.198.248.145/
+
+# Check if the website is accessible from the outside with curl -sI
+curl -sI 34.198.248.145/
+
+# Check if the website is accessible from the outside with curl 127.0.0.1
+curl 127.0.0.1
+
+# Check if the website is accessible from the outside with curl -sI 127.0.0.1
+curl -sI 127.0.0.1
+
+# Check the nginx logs
+sudo tail -f /var/log/nginx/access.log
+sudo tail -f /var/log/nginx/error.log
