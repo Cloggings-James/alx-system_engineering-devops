@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Update the system
 sudo apt-get update
 
-# Install Nginx
-sudo apt-get install -y nginx
+# Install Nginx server
+sudo apt-get -y install nginx
 
 # Create a new Nginx configuration file
 sudo nano /etc/nginx/sites-available/default
@@ -23,10 +23,10 @@ server {
 sudo nano /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the changes
-sudo service nginx restart
+sudo service nginx reload
+sudo service nginx start
 
 # Check the redirection
 curl -sI 34.198.248.145/redirect_me/
 
 # If the redirection is working correctly, you should see a "301 Moved Permanently" message in the output.
-
