@@ -1,34 +1,17 @@
 #!/usr/bin/env bash
+# Install Nginx server
+# Update the package list
+sudo apt-get update
 
 # Install Nginx
-apt-get update
-apt-get -y install nginx
+sudo apt-get -y install nginx
 
-# Create a custom HTML file with "Hello World!" content
-echo "Hello World!" > /usr/share/nginx/html/index.html
+# Allow HTTP traffic through the firewall for Nginx
+sudo ufw allow 'Nginx HTTP'
 
-# Check if the default Nginx configuration file exists, and if so, backup and remove it
-if [ -f /etc/nginx/sites-available/default ]; then
-  mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
-fi
+# Create the HTML content
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
 
-# Create a custom Nginx configuration file
-cat <<EOL > /etc/nginx/sites-available/default
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /usr/share/nginx/html;
-    index index.html;
-
-    server_name _;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOL
-
-# Reload Nginx to apply the changes
-service nginx reload
+# Start the Nginx service
+sudo service nginx start
 
