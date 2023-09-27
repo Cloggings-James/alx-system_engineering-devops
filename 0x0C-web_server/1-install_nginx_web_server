@@ -1,31 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Configures a new ubuntu machine by installing
+# Nginx where it should be listening on port 80
+# Serve a page that would return a Hello World string
+#
 
-# Update the system
-sudo apt-get update -y
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && \
+	 sudo apt-get install nginx -y
 
-# Install nginx
-sudo apt-get install nginx -y
+echo -e "\nSetting up some minor stuff.\n"
 
-# Create a new directory for the website
-sudo mkdir /var/www/html/
+# starting nginx service
+sudo service nginx start
 
-# Create a new file for the website
-sudo touch /var/www/html/index.html
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-# Add the following content to the index.html file
-echo "Hello World!" > /var/www/html/index.html
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
-# Restart nginx to apply changes
+# Backup default index
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Creating new index
+echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+
+# Restarting nginx
 sudo service nginx restart
 
-# Check if nginx is running
-sudo service nginx status
-
-# Check if the website is accessible
-curl localhost
-
-# Check if the website is accessible from the outside
-curl -sI 34.198.248.145/
-
-# Check if the website contains the string "Hello World!"
-curl 34.198.248.145/ | grep "Hello World!"
+echo -e "\nCompleted. ✅\n"
