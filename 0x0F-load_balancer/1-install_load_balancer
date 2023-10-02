@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Install your load balancer
+
+# Update the package list
+sudo apt-get -y update
+
+# Install HAProxy
+sudo apt-get -y install haproxy
+
+# Backup the original HAProxy configuration file
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
+
+# Create a new HAProxy configuration file
+echo "
+frontend estebanweb
+    bind *:80
+    mode http
+    default_backend app
+backend app
+    balance roundrobin
+    server 1542-web-01 34.73.222.49:80 check
+    server 1542-web-02 54.82.121.70:80 check" | sudo tee /etc/haproxy/haproxy.cfg
+
+# Restart HAProxy to apply the changes
+sudo service haproxy restart
+
+echo "HAProxy configured successfully."
+
