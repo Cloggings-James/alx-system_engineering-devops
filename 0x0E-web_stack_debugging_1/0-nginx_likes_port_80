@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Script to ensure Nginx is running and listening on port 80
+
+# Check if Nginx is running, if not, start it
+if ! service nginx status > /dev/null 2>&1; then
+    service nginx start
+fi
+
+# Check if Nginx is listening on port 80 using 'ss'
+if ! ss -tuln | grep -q ":80 "; then
+    service nginx restart
+fi
+
