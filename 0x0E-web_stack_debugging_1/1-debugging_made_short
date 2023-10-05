@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
-# Script to ensure Nginx is not running
-
-# Stop Nginx if it's running
-service nginx stop
-
-# Check if Nginx is running, and if so, report it as not running
-if service nginx status | grep -q "nginx is running"; then
-    echo "nginx is not running for real"
-fi
-
+# Script that make nginx listen to port 80
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx start
+kill "$(pgrep 'nginx' | head -1)"
