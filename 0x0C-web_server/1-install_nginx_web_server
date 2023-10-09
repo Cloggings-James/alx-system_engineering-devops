@@ -1,12 +1,30 @@
 #!/usr/bin/env bash
-# commands to install nginx on web server
+# Configures a new Ubuntu machine by installing
+# Nginx and serving a page that returns a Hello World string
 
-sudo apt-get update
-sudo apt-get install nginx
-sudo ufw 'Nginx HTTP'
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && sudo apt-get install nginx -y
 
+echo -e "\nSetting up some minor stuff.\n"
+
+# Start Nginx service
+sudo systemctl start nginx
+
+# Allow Nginx through the firewall
+sudo ufw allow 'Nginx HTTP'
+
+# Give the user ownership of website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www/html
+
+# Backup the default index
+sudo mv /var/www/html/index.html /var/www/html/index.html.bckp
+
+# Create a new index with "Hello World!"
 echo -e "Hello World!" | sudo tee /var/www/html/index.html
 
-# testing nginx configurations
-sudo nginx -t
-sudo service nginx reload
+# Restart Nginx to apply changes
+sudo systemctl restart nginx
+
+echo -e "\nCompleted. ✅ \n"
+
