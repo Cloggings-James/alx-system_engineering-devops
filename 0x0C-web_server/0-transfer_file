@@ -1,8 +1,29 @@
 #!/usr/bin/env bash
-# installs nginx and configure it to listen on port 80
-# print "Hello World"
+# Transfers a file from the client to the server using scp
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
-echo 'Hello World!' > /var/www/html/index.nginx-debian.html
-sudo service nginx start
+# Check if the correct number of arguments are provided
+if [ "$#" -lt 4 ]; then
+    echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+    exit 1
+fi
+
+# Assign arguments to variables
+path_to_file="$1"
+ip="$2"
+username="$3"
+ssh_key="$4"
+
+# Check if the file exists on the client machine
+if [ ! -f "$path_to_file" ]; then
+    echo "File not found: $path_to_file"
+    exit 2
+fi
+
+# Use scp to transfer the file to the server's home directory
+scp -o StrictHostKeyChecking=no -i "$ssh_key" "$path_to_file" "$username@$ip":~/
+if [ $? -eq 0 ]; then
+    echo "FILE WAS TRANSFFERED SUCCESSFULLY."
+else
+    echo "FILE TRANSFER FAILED."
+fi
+
