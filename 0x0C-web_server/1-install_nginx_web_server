@@ -1,35 +1,30 @@
 #!/usr/bin/env bash
-# Configures a new ubuntu machine by installing
-# Nginx where it should be listening on port 80
-# Serve a page that would return a Hello World string
-#
+# Configures a new Ubuntu machine by installing
+# Nginx and serving a page that returns a Hello World string
 
 echo -e "Updating and installing Nginx.\n"
-sudo apt-get update -y -qq && \
-	 sudo apt-get install nginx -y
+sudo apt-get update -y -qq && sudo apt-get install nginx -y
 
 echo -e "\nSetting up some minor stuff.\n"
 
-# starting nginx service
-sudo service nginx start
+# Start Nginx service
+sudo systemctl start nginx
 
-# allowing nginx on firewall
+# Allow Nginx through the firewall
 sudo ufw allow 'Nginx HTTP'
 
-# Give the user ownership to website files for easy editing
+# Give the user ownership of website files for easy editing
 sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
+sudo chmod -R 755 /var/www/html
 
-# Backup default index
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+# Backup the default index
+sudo mv /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
 
-# Creating new index
-echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+# Create a new index with "Hello World!"
+echo -e "Hello World!" | sudo tee /var/www/html/index.html
 
-# Restarting nginx
-sudo service nginx restart
+# Restart Nginx to apply changes
+sudo systemctl restart nginx
 
-echo -e "\nCompleted. ✅\n"
+echo -e "\nCompleted. ✅ \n"
 
-# Restoring nginx
-sudo service nginx reload
