@@ -1,49 +1,17 @@
-# Firewall Project
+# 0x13 Firewall 🚒
 
-**Author:** [Your Name]
+This repository contains advanced scripts for configuring firewall rules on Linux systems. With the increasing threats of cyber attacks, it is highly recommended to have a reliable firewall mechanism in place to safeguard our systems and networks. The scripts provided in this repository are designed to block any incoming traffic except for the ones that are explicitly specified. 
 
-## Overview
+## Task 0: Block all incoming traffic but⚔️
 
-This project involves setting up a firewall and configuring port forwarding on a Linux server. The tasks include blocking incoming traffic on specific ports and forwarding traffic from one port to another.
+The first task in this repository is to configure the firewall to block all incoming traffic except for the ones that are specifically allowed. With this script, you can customize the rules to allow incoming traffic only from specified IP addresses, ports, and protocols. 
 
-## Table of Contents
+To view the code for this task, please follow this link: [0-block_all_incoming_traffic_but](./0-block_all_incoming_traffic_but).
 
-1. [Task 0: Block all incoming traffic](#task-0-block-all-incoming-traffic)
-2. [Task 1: Port forwarding](#task-1-port-forwarding)
+## Task 100: Port forwarding⏩
 
-## Task 0: Block all incoming traffic
+The second task in this repository is to configure port forwarding using firewall rules. This script helps to forward incoming traffic on a specific port to another internal or external IP address and port. This could be useful for setting up services and applications that require external access through a specific port on your network.
 
-In this task, we configure the `ufw` (Uncomplicated Firewall) to block all incoming traffic on a server except for specific TCP ports. The allowed ports are SSH (22), HTTPS SSL (443), and HTTP (80).
+To view the code for this task, please follow this link: [100-port_forwarding](./100-port_forwarding).
 
-### Instructions
-
-To complete this task, follow these steps:
-
-1. Install `ufw` if not already installed.
-2. Configure `ufw` to allow only SSH, HTTPS, and HTTP traffic.
-3. Share the `ufw` commands used in your answer file.
-
-## Task 1: Port forwarding
-
-In this advanced task, we configure port forwarding on the server to redirect incoming traffic from port 8080 to port 80. This can be useful for routing external traffic to specific services.
-
-### Instructions
-
-To complete this task, follow these steps:
-
-1. Modify the `ufw` configuration file to set up port forwarding.
-2. Test the port forwarding to ensure it redirects traffic correctly.
-3. Share a copy of the `ufw` configuration file you modified in your answer file.
-
-## Usage
-
-You can execute the provided commands on the specified servers to complete the tasks. Ensure you follow best practices when configuring the firewall to prevent any unintended issues.
-
-## Author
-
-[Your Name] - [GitHub Profile](https://github.com/yourusername)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+Let's secure our systems and networks with these advanced firewall scripts!
