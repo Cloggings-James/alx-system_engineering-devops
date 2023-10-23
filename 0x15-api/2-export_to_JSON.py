@@ -1,34 +1,24 @@
 #!/usr/bin/python3
-import requests
-import json
-from sys import argv
-def fetch_employee_data(employee_id):
-    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    response = requests.get(url)
+"""fetches information from JSONplaceholder API and exports to JSON"""
 
-    if response.status_code == 200:
-        data = response.json()
-        tasks_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-        tasks_response = requests.get(tasks_url)
-        tasks = tasks_response.json()
-        return data, tasks
-    else:
-        return None, None
-def export_to_json(employee_id, user_data, tasks):
-    if user_data and tasks:
-        data_to_export = {str(employee_id): [{"task": task['title'], "completed": task['completed'], "username": user_data['name']} for task in tasks]}
-        filename = f"{employee_id}.json"
-        with open(filename, 'w') as json_file:
-            json.dump(data_to_export, json_file)
-        print(f"Data has been exported to {filename}")
-    else:
-        print("Employee not found")
+from json import dump
+from requests import get
+from sys import argv
+
 
 if __name__ == "__main__":
-    if len(argv) == 2 and argv[1].isdigit():
-        employee_id = int(argv[1])
-        user_data, tasks = fetch_employee_data(employee_id)
-        export_to_json(employee_id, user_data, tasks)
-    else:
-        print("Usage: 2-export_to_JSON.py <employee_id>")
+    todo_url = "https://jsonplaceholder.typicode.com/user/{}/todos".format(
+        argv[1])
+    name_url = "https://jsonplaceholder.typicode.com/users/{}".format(argv[1])
+    todo_result = get(todo_url).json()
+    name_result = get(name_url).json()
 
+    todo_list = []
+    for todo in todo_result:
+        todo_dict = {}
+        todo_dict.update({"task": todo.get("title"), "completed": todo.get(
+            "completed"), "username": name_result.get("username")})
+        todo_list.append(todo_dict)
+
+    with open("{}.json".format(argv[1]), 'w') as f:
+        dump({argv[1]: todo_list}, f)
